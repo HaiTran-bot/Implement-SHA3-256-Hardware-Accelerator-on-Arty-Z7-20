@@ -140,6 +140,7 @@ end
 always@(*)begin
 	case(state_cs)
 		IDLE:		state_ns = (in_valid)? RD : IDLE;
+		//34 gói 32 bit (1088 bit)
 		RD:		begin
 					if(counter==34)
 						state_ns = IDLE2;

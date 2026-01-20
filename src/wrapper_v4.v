@@ -175,6 +175,7 @@ always@(*)begin
 		SHA3_DONE:	state_ns = (!sha3_out_valid)? IDLE3: SHA3_DONE; //obtain all output data save in out_data_reg[0] ~ out_data_reg[3]
 		IDLE3:		state_ns = DONE_WAIT;
 		DONE:		begin
+				//xuat 256 bit
 					if(counter==8)
 						state_ns = IDLE;
 					else
@@ -262,6 +263,6 @@ always@(posedge clk or negedge rst_n)begin
 	else if(state_ns==IDLE)
 		out_data<=0;
 	else if(state_ns==DONE || state_ns==DONE_WAIT)
-		out_data<= (counter[0]==0) ? out_data_reg[counter>>1][31:0] : out_data_reg[counter>>1][63:32];
+		out_data<= (counter[0]==0) ? out_data_reg[counter>>1][31:0] : out_data_reg[counter>>1][63:32]; //xuất 4 word mỗi word 8 byte (64 bit)
 end
 endmodule

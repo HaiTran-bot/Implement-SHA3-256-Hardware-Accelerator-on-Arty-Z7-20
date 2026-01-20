@@ -197,7 +197,7 @@ module bridge_uart_sha3 (
                 // 5. GỬI UART TX
                 // -----------------------------------------------------
                 S_TX_BYTE: begin
-                    case (out_byte_count)
+					case (out_byte_count)  //cắt 32 bit ra thành 4 lần 8 bit (1 byte) 
                         2'd0: tx_data <= out_buffer[7:0];
                         2'd1: tx_data <= out_buffer[15:8];
                         2'd2: tx_data <= out_buffer[23:16];
@@ -210,7 +210,7 @@ module bridge_uart_sha3 (
                     else if (tx_ready) begin 
                         tx_valid <= 0; 
                         if (out_byte_count == 3) begin
-                            if (word_count == 7) begin
+							if (word_count == 7) begin //đủ 8 word (256 bit)
                                 state <= S_RX_IDLE;
                             end else begin
                                 word_count <= word_count + 1;

@@ -112,9 +112,9 @@ always@(*)begin
 		sha3_in_data = {in_data, input_buffer};
 	// gửi word trong buffer (với 32 bit 0) khi counter[0] LÀ 1
     else if(in_done && !counter[0])
-        sha3_in_data = {32'h0, in_data  };
+		sha3_in_data = {32'h0, in_data  }; //done khi mới gửi gói đầu
 	else if (state_cs == RD_WAIT && in_done && counter[0]) // <--- Sửa !counter[0] thành counter[0]
-		sha3_in_data = {32'h0, input_buffer};
+		sha3_in_data = {32'h0, input_buffer}; //done khi đã dữ liệu sẵn rồi
 	else
 		sha3_in_data = 0;
 end

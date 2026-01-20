@@ -1015,6 +1015,7 @@ always@(posedge clk or negedge rst_n)begin
 		out_data<=data_reg[counter];
 end
 
+//đứng đợi khi full
 always@(posedge clk or negedge rst_n)begin
 	if(!rst_n)
 		out_buffer_full<=0;
